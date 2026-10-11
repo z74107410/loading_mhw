@@ -64,15 +64,65 @@
     }
 
     .cat {
+      display: block;
       width: min(60vw, 320px, max(40vh, 180px));
-      margin-top: clamp(1.5rem, 6vmin, 3rem);
+      margin-top: clamp(2.25rem, 8vmin, 4rem);
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
       transform: translateX(12.25%);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cat:focus-visible {
+      outline: 3px solid var(--cream-deep);
+      outline-offset: 6px;
+      border-radius: 12px;
+    }
+
+    .cat-figure {
+      position: relative;
+      display: block;
+      /* 貓頭中心約在圖寬 40.3%，陰影中心在 37.75%，往左移讓兩者對齊 */
+      transform: translateX(-2.5%);
     }
 
     .cat img {
-      position: relative;
       display: block;
       width: 100%;
+    }
+
+    .cat .cat-jump {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 1;
+      visibility: hidden;
+    }
+
+    .cat.jumping .cat-idle {
+      visibility: hidden;
+    }
+
+    .cat.jumping .cat-jump {
+      visibility: visible;
+      animation: cat-jump 0.75s;
+    }
+
+    .cat.jumping::after {
+      animation: cat-shadow 0.75s;
+    }
+
+    @keyframes cat-jump {
+      0%   { transform: translateY(0);    animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+      45%  { transform: translateY(-28%); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes cat-shadow {
+      0%, 100% { transform: scale(1);   opacity: 1; }
+      45%      { transform: scale(0.6); opacity: 0.5; }
     }
 
     .cat::after {
@@ -87,14 +137,14 @@
 
     .subtitle {
       font-weight: 700;
-      margin-top: clamp(1.25rem, 4vmin, 2rem);
+      margin-top: clamp(2rem, 6vmin, 3rem);
       font-size: clamp(0.95rem, 2.8vw, 1.2rem);
       letter-spacing: 0.1em;
       line-height: 1.7;
     }
 
     .wait {
-      margin-top: clamp(0.75rem, 2.5vmin, 1.25rem);
+      margin-top: clamp(1rem, 3.5vmin, 1.75rem);
       font-size: clamp(1.1rem, 3.2vw, 1.4rem);
       font-weight: 700;
       letter-spacing: 0.15em;
@@ -108,7 +158,7 @@
 
     .home-btn {
       display: inline-block;
-      margin-top: clamp(1.25rem, 4vmin, 2rem);
+      margin-top: clamp(2rem, 7vmin, 3.5rem);
       padding: 0.7em 2.2em;
       border-radius: 10px;
       background: var(--text);
@@ -129,6 +179,10 @@
       outline-offset: 3px;
     }
 
+    @keyframes cat-still {
+      from, to { transform: none; }
+    }
+
     @keyframes wave {
       0%, 60%, 100% { transform: translateY(0); }
       30%           { transform: translateY(-0.4em); }
@@ -136,18 +190,37 @@
 
     @media (prefers-reduced-motion: reduce) {
       .wait span { animation: none; }
+      .cat.jumping .cat-jump,
+      .cat.jumping::after { animation-name: cat-still; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <h1 class="title">獵人似乎遇到了一點麻煩</h1>
-    <div class="cat">
-      <img src="imgs/cat.png" alt="閉著眼睛的小貓">
-    </div>
+    <button class="cat" type="button" aria-label="讓小貓跳一下">
+      <span class="cat-figure">
+        <img class="cat-idle" src="imgs/cat.png" alt="">
+        <img class="cat-jump" src="imgs/cat_jump.png" alt="">
+      </span>
+    </button>
     <p class="subtitle">新大陸調查隊正在調查中</p>
     <p class="wait" aria-label="請稍後..."><span aria-hidden="true" style="--i:0">請</span><span aria-hidden="true" style="--i:1">稍</span><span aria-hidden="true" style="--i:2">後</span><span aria-hidden="true" style="--i:3">.</span><span aria-hidden="true" style="--i:4">.</span><span aria-hidden="true" style="--i:5">.</span></p>
     <a class="home-btn" href="https://www.monsterhunter.com/world/hk/">返回首頁</a>
   </main>
+  <script>
+    const cat = document.querySelector(".cat");
+    const jumpImg = cat.querySelector(".cat-jump");
+
+    cat.addEventListener("click", () => {
+      cat.classList.remove("jumping");
+      void cat.offsetWidth; // 強制重排，讓連點時動畫重新開始
+      cat.classList.add("jumping");
+    });
+
+    jumpImg.addEventListener("animationend", () => {
+      cat.classList.remove("jumping");
+    });
+  </script>
 </body>
 </html>
