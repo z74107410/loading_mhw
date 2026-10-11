@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>系統繁忙</title>
+  <style>
+    @font-face {
+      font-family: "Mochiy Pop One";
+      src: url("fonts/MochiyPopOne-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    :root {
+      --cream: #f7efe3;
+      --cream-rgb: 247, 239, 227;
+      --cream-deep: #e8d2b0;
+      --text: #5c3a1f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: max(100vh, calc(851px / 3));
+      min-height: max(100dvh, calc(851px / 3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4vmin 16px;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at center,
+          rgba(var(--cream-rgb), 1)    0%,
+          rgba(var(--cream-rgb), 0.92) 30%,
+          rgba(var(--cream-rgb), 0.55) 60%,
+          rgba(var(--cream-rgb), 0)    100%),
+        url("imgs/bg.png") center / cover no-repeat fixed,
+        var(--cream);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei UI Light",
+                   "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title {
+      font-family: "Mochiy Pop One", "Microsoft JhengHei", sans-serif;
+      font-size: clamp(1.5rem, 6vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      line-height: 1.4;
+    }
+
+    .cat {
+      width: min(60vw, 320px, max(40vh, 180px));
+      margin-top: clamp(1.5rem, 6vmin, 3rem);
+      transform: translateX(12.25%);
+    }
+
+    .cat img {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+
+    .cat::after {
+      content: "";
+      display: block;
+      width: 70%;
+      height: clamp(8px, 3vmin, 16px);
+      margin: -3% 0 0 2.75%;
+      border-radius: 50%;
+      background: var(--cream-deep);
+    }
+
+    .subtitle {
+      font-weight: 700;
+      margin-top: clamp(1.25rem, 4vmin, 2rem);
+      font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+      letter-spacing: 0.1em;
+      line-height: 1.7;
+    }
+
+    .wait {
+      margin-top: clamp(0.75rem, 2.5vmin, 1.25rem);
+      font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1 class="title">獵人似乎遇到了一點麻煩</h1>
+    <div class="cat">
+      <img src="imgs/cat.png" alt="閉著眼睛的小貓">
+    </div>
+    <p class="subtitle">新大陸調查隊正在調查中</p>
+    <p class="wait">請稍後...</p>
+  </main>
+</body>
+</html>
