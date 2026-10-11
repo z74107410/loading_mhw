@@ -16,6 +16,7 @@
       --cream-rgb: 247, 239, 227;
       --cream-deep: #e8d2b0;
       --text: #5c3a1f;
+      --text-dark: #3a2312;
     }
 
     * {
@@ -105,6 +106,29 @@
       animation-delay: calc(var(--i) * 0.12s);
     }
 
+    .home-btn {
+      display: inline-block;
+      margin-top: clamp(1.25rem, 4vmin, 2rem);
+      padding: 0.7em 2.2em;
+      border-radius: 10px;
+      background: var(--text);
+      color: var(--cream);
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      transition: background-color 0.15s;
+    }
+
+    .home-btn:active {
+      background: var(--text-dark);
+    }
+
+    .home-btn:focus-visible {
+      outline: 3px solid var(--cream-deep);
+      outline-offset: 3px;
+    }
+
     @keyframes wave {
       0%, 60%, 100% { transform: translateY(0); }
       30%           { transform: translateY(-0.4em); }
@@ -123,6 +147,7 @@
     </div>
     <p class="subtitle">新大陸調查隊正在調查中</p>
     <p class="wait" aria-label="請稍後..."><span aria-hidden="true" style="--i:0">請</span><span aria-hidden="true" style="--i:1">稍</span><span aria-hidden="true" style="--i:2">後</span><span aria-hidden="true" style="--i:3">.</span><span aria-hidden="true" style="--i:4">.</span><span aria-hidden="true" style="--i:5">.</span></p>
+    <a class="home-btn" href="https://www.monsterhunter.com/world/hk/">返回首頁</a>
   </main>
 </body>
 </html>
