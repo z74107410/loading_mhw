@@ -98,6 +98,21 @@
       font-weight: 700;
       letter-spacing: 0.15em;
     }
+
+    .wait span {
+      display: inline-block;
+      animation: wave 1.6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.12s);
+    }
+
+    @keyframes wave {
+      0%, 60%, 100% { transform: translateY(0); }
+      30%           { transform: translateY(-0.4em); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wait span { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -107,7 +122,7 @@
       <img src="imgs/cat.png" alt="閉著眼睛的小貓">
     </div>
     <p class="subtitle">新大陸調查隊正在調查中</p>
-    <p class="wait">請稍後...</p>
+    <p class="wait" aria-label="請稍後..."><span aria-hidden="true" style="--i:0">請</span><span aria-hidden="true" style="--i:1">稍</span><span aria-hidden="true" style="--i:2">後</span><span aria-hidden="true" style="--i:3">.</span><span aria-hidden="true" style="--i:4">.</span><span aria-hidden="true" style="--i:5">.</span></p>
   </main>
 </body>
 </html>
